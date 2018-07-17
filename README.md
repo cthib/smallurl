@@ -9,8 +9,12 @@ This project assumes that you have `virtualenv` and `virtualenvwrapper` installe
 3. `pip freeze` will show the project dependencies
 
 ### Using the GraphQL API
-To run the project: `python manage.py runserver` *NOTE: This project assumes that you are using the Django default localhost of 127.0.0.1:8000*. The GraphQL API is available at `BASE_URL/graphql/`. A an example mutation command:
-```mutation {
+To run the project: `python manage.py runserver` *NOTE: This project assumes that you are using the Django default localhost of 127.0.0.1:8000*.
+
+
+The GraphQL API is available at `BASE_URL/graphql/`. A an example mutation command:
+```
+mutation {
   createUrl(long: "https://www.youtube.com") {
     url {
       long
@@ -20,4 +24,24 @@ To run the project: `python manage.py runserver` *NOTE: This project assumes tha
   }
 }
 ```
-If the response is `ok`, the short URL will redirect to the given long URL. The API also allows for queries on `allUrls` and a single `url`.
+If the response is `ok`, the short URL will redirect to the given long URL.
+
+
+The API also allows for queries:
+```
+query {
+  allUrls {
+    long
+    short
+  }
+}
+```
+and
+```
+query {
+  url(long: "https://www.youtube.com") {
+    long
+    short
+  }
+}
+```
