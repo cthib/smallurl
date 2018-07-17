@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 
-from .models import Url
 from .base_62_converter import saturate
+from .models import Url
 
 
 def url_redirect(request, short_token):

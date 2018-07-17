@@ -1,7 +1,7 @@
 import graphene
 
-from urllib.request import urlopen, HTTPError, URLError
 from graphene_django import DjangoObjectType
+from urllib.request import urlopen, HTTPError, URLError
 
 from .models import Url
 
