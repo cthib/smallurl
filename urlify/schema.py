@@ -1,5 +1,6 @@
 import graphene
 
+from urllib.request import urlopen, HTTPError, URLError
 from graphene_django import DjangoObjectType
 
 from .models import Url
@@ -19,9 +20,19 @@ class CreateUrl(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, long):
-        url = Url.objects.create(long=long)
-        url.set_short()
-        ok = True
+
+        # Quick test on the given URL
+        # A better solution would to give a reason for failing
+        try:
+            urlopen(long)
+        except URLError or HTTPError:
+            url = None
+            ok = False
+        else:
+            url = Url.objects.create(long=long)
+            url.set_short()
+            ok = True
+
         return CreateUrl(url=url, ok=ok)
 
 
